@@ -1,11 +1,14 @@
 import React from 'react';
-import './App.css';
-import { Container } from "./components/style";
+import { Container, Divider } from "./components/style";
+import ActionPanel from "./components/ActionPanel/ActionPanel";
+import SearchList from "./components/SearchList/SearchList";
 
 const App: React.FC = () => {
   return (
     <Container className="App">
-      asdas
+      <ActionPanel/>
+      <Divider/>
+      <SearchList/>
     </Container>
   );
 }
