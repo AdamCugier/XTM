@@ -89,7 +89,6 @@ export const List = {
   Snippet: styled.span`
   font-size: 14px;
   `,
-
-}
+};
 
 

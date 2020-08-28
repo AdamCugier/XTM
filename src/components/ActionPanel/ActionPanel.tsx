@@ -12,24 +12,34 @@ const ActionPanel: React.FC = () => {
   const searchStore = useContext(SearchStore);
   const { addResults, searchResults } = searchStore;
 
+  const InvalidCharacters = new RegExp(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/); //eslint-disable-line
+
   const getData = (searchPhrase: string) => {
-    WikiService.getResults(searchPhrase).then(result => {
-      const data = result.query.search.map((element: any) => ({
-        pageid: element.pageid,
-        snippet: element.snippet,
-        title: element.title
-      }));
-      addResults(data);
-    });
+    if (InvalidCharacters.test(searchPhrase) === false) {
+      WikiService.getResults(searchPhrase).then(result => {
+        const data = result.query.search.map((element: any) => ({
+          pageid: element.pageid,
+          snippet: element.snippet,
+          title: element.title
+        }));
+        addResults(data);
+      });
+    } else {
+      alert('Cant Search !! Invalid character \nInvalid characters :  -!$%^&*()_+|~=`{}\\[\\]:";\'<>?,.\\/ \n Valid pattern (A-Z a-z 0-9)')
+    }
   };
 
   const replaceAll = () => {
     const allHighlighted = Array.from(document.getElementsByClassName('searchmatch'));
     if (allHighlighted.length > 0) {
-      allHighlighted.forEach(highlight => {
-        highlight.innerHTML = replacePhrase;
-        highlight.classList.remove('searchmatch');
-      })
+      if (InvalidCharacters.test(replacePhrase) === false) {
+        allHighlighted.forEach(highlight => {
+          highlight.innerHTML = replacePhrase;
+          highlight.classList.remove('searchmatch');
+        })
+      } else {
+        alert('Cant replace !! Invalid character \nInvalid characters :  -!$%^&*()_+|~=`{}\\[\\]:";\'<>?,.\\/ \n Valid pattern (A-Z a-z 0-9)')
+      }
     } else {
       alert('Can not find phrase to replace')
     }
@@ -38,8 +48,12 @@ const ActionPanel: React.FC = () => {
   const replaceFirst = () => {
     const firstHighlight = document.querySelector('.searchmatch');
     if (firstHighlight) {
-      firstHighlight.innerHTML = replacePhrase;
-      firstHighlight.classList.remove('searchmatch');
+      if (InvalidCharacters.test(replacePhrase) === false) {
+        firstHighlight.innerHTML = replacePhrase;
+        firstHighlight.classList.remove('searchmatch');
+      } else {
+        alert('Cant replace !! Invalid character \nInvalid characters :  -!$%^&*()_+|~=`{}\\[\\]:";\'<>?,.\\/ \n Valid pattern (A-Z a-z 0-9)')
+      }
     } else {
       alert('Can not find phrase to replace')
     }
