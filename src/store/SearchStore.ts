@@ -1,25 +1,17 @@
-import { observable, action, computed, reaction } from "mobx"
+import { observable, action } from "mobx"
 import { createContext } from "react"
 
 export interface SearchResult {
-  pageId?: string;
+  pageid?: number;
   title: string;
-  snipped: string;
+  snippet: string;
 }
 
 class SearchStore {
-  constructor() {
-    reaction(() => this.searchResults, _ => console.log(this.searchResults.length))
-  }
-
   @observable searchResults: SearchResult[] = [];
 
   @action addResults = (results: SearchResult[]) => {
     this.searchResults = results;
-  };
-
-  @computed get results() {
-    return this.searchResults;
   };
 }
 
