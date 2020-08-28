@@ -51,7 +51,8 @@ const ActionPanel: React.FC = () => {
         <Input.Container>
           <Input.Text>Search phrase:</Input.Text>
           <Input.Field onChange={e => setSearchPhrase(e.target.value)} type="text"/>
-          <ActionButton onClick={() => getData(searchPhrase)}>Search</ActionButton>
+          <ActionButton disabled={searchPhrase.length === 0}
+                        onClick={() => getData(searchPhrase)}>Search</ActionButton>
         </Input.Container>
         <Input.Container>
           <Input.Text>Replace with:</Input.Text>
